@@ -1,20 +1,17 @@
-#!/usr/bin/python
- 
 # http://www.packtpub.com/article/python-ldap-applications-ldap-opearations
  
-# sudo apt-get install python-ldap
+# install python-ldap for windows to get this going!
  
 import ldap
-import sys
  
-host = 'ldap://dc.brett.org:389'
-dn = 'bdemetris@dc.brett.org'
+host = 'ldap://brett.com:389'
+dn = 'bdemetris@brett.com'
 pw = 'Acebug0mg'
-base_dn = 'cn=users,dc=dc,dc=brett,dc=org'
-filter = 'memberOf=cn=users,dc=dc,dc=brett,dc=org'
+base_dn = 'cn=users,dc=brett,dc=com'
+filter = '(objectclass=person)'
 # Show only activated users
 # filter = '(&(memberOf=cn=workers,cn=users,dc=example,dc=com)(!(userAccountControl=66050)))'
-attrs = ['sAMAccountName', 'givenname', 'sn', 'mail', 'description', 'telephonenumber', 'homephone', 'mobile']
+attrs = ['givenName', 'sn', 'mail']
 con = ldap.initialize(host)
  
 # Bind to the server
@@ -29,6 +26,9 @@ con.unbind()
 print res
  
 for i in res:
-    print i[1]['givenname'], i[1]['sn']
- 
+    try:
+        print i[1]['givenName'], i[1]['sn'], i[1]['mail'], "Password", i[1]['mail'],
+    except Exception as ex:
+        print "User is missing %s" % (ex)
+
 # TODO: save as csv file
