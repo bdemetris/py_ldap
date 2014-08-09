@@ -1,40 +1,41 @@
-# csv2xml.py
-# FB - 201010107
-# First row of the csv file must be header!
-
-# example CSV file: myData.csv
-# id,code name,value
-# 36,abc,7.6
-# 40,def,3.6
-# 9,ghi,6.3
-# 76,def,99
-
 import csv
 
-csvFile = 'c:\project\work.csv'
-xmlFile = 'c:\project\myData.xml'
+# target file.  destination file will be created
+csvFile = '/Users/$User/mlp_csv.csv'
+xmlFile = '/Users/$User/Desktop/myData.xml'
 
+# use both files
 csvData = csv.reader(open(csvFile, 'rU'))
 xmlData = open(xmlFile, 'w')
-xmlData.write('<?xml version="1.0"?>' + "\n")
-# there must be only one top-level tag
-xmlData.write('<csv_data>' + "\n")
 
+# write root tag
+xmlData.write('<root>' + "\n")
+
+# write line 2 - customer id and password
+customer_id = 'monkey'
+password = 'butts'
+xmlData.write("<customer id='%s' password='%s'>" % (customer_id,password) + "\n")
+
+# parse csv and create the body - actions to take = _Add, _Update
 rowNum = 0
+refNum = 0
 for row in csvData:
     if rowNum == 0:
         tags = row
         # replace spaces w/ underscores in tag names
         for i in range(len(tags)):
             tags[i] = tags[i].replace(' ', '_')
-    else: 
-        xmlData.write('<row>' + "\n")
+    else:
+        refNum += 1
+        action = 'User_Add'
+        xmlData.write("<action type='%s' ref=%r>" % (action,str(refNum))+ "\n")
         for i in range(len(tags)):
             xmlData.write('    ' + '<' + tags[i] + '>' \
                           + row[i] + '</' + tags[i] + '>' + "\n")
-        xmlData.write('</row>' + "\n")
-            
+        xmlData.write('</action>' + "\n")
+
     rowNum +=1
 
-xmlData.write('</csv_data>' + "\n")
+xmlData.write('</customer>' + "\n")
+xmlData.write('</root>' + "\n")
 xmlData.close()
