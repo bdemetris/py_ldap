@@ -1,3 +1,5 @@
+# thanks to the original author of this script!
+
 import csv
 
 # target file.  destination file will be created
