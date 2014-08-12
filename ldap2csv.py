@@ -6,7 +6,7 @@ import ldap
  
 host = 'ldap://brett.com:389'
 dn = 'bdemetris@brett.com'
-pw = 'Acebug0mg'
+pw = 'password'
 base_dn = 'cn=users,dc=brett,dc=com'
 filter = '(objectclass=person)'
 # Show only activated users
