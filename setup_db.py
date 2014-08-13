@@ -28,7 +28,7 @@ sql = """CREATE TABLE user_model (
          FirstName  CHAR(20) NOT NULL,
          LastName  CHAR(20),
          UserName CHAR(30),
-         EmpolyeeID INT,  
+         EmployeeID INT(10),
          Password CHAR(10) )"""
 
 cursor.execute(sql)
