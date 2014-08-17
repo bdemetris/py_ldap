@@ -3,8 +3,8 @@
 import csv
 
 # target file.  destination file will be created
-csvFile = '/Users/$User/mlp_csv.csv'
-xmlFile = '/Users/$User/Desktop/myData.xml'
+csvFile = 'C:\work\work.csv'
+xmlFile = 'C:\work\myData.xml'
 
 # use both files
 csvData = csv.reader(open(csvFile, 'rU'))

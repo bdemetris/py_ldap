@@ -23,7 +23,7 @@ res = con.search_s(base_dn, ldap.SCOPE_SUBTREE, filter, attrs)
 con.unbind()
  
 # Print the returned dictionary
-print res
+print res[0]
  
 for i in res:
     try:
@@ -31,4 +31,30 @@ for i in res:
     except Exception as ex:
         print "User is missing %s" % (ex)
 
-# TODO: save as csv file
+# Write results into mySQL
+
+import MySQLdb
+
+# Open database connection
+db = MySQLdb.connect("localhost","testuser","test123","TESTDB" )
+
+# prepare a cursor object using cursor() method
+cursor = db.cursor()
+
+# Prepare SQL query to INSERT a record into the database.
+sql = "INSERT INTO user_model(FirstName, \
+         LastName, UserName) \
+         VALUES ('%s', '%s', '%s', '%d', '%s')" % \
+         ('givenName', 'sn', 'mail')
+         
+try:
+   # Execute the SQL command
+   cursor.execute(sql)
+   # Commit your changes in the database
+   db.commit()
+except:
+   # Rollback in case there is any error
+   db.rollback()
+
+# disconnect from server
+db.close()
