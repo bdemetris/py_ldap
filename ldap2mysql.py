@@ -31,8 +31,21 @@ results = con.search_s(base_dn, ldap.SCOPE_SUBTREE, filter, attrs)
 # ------------> welcome to the jungle!!!
 # working on this: result contains 2 objects (0 and 1), we only care about the 1st
 for result in results:
-   print 'debug: result'
-   print result
+#   print 'debug: result'
+#   print result
+   #set giveName to f_name
+   try:
+      f_name = result[1]['givenName']
+      print f_name
+   except:
+      pass
+   #set sn to l_name
+   try:
+      l_name = result[1]['sn']
+      print l_name
+   except:
+      pass
+   #set mail to mail
    try:
       mail = result[1]['mail']
       print mail
