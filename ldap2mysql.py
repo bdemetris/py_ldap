@@ -58,10 +58,11 @@ for result in results:
       mail = mail.replace("'","")
       mail = mail.replace("]","")
       print mail
+      #execute the sql command for each. can this be outside of this particular try?
       cursor.execute("INSERT INTO user_model(FirstName, LastName, UserName) VALUES(%s,%s,%s)", [f_name, l_name, mail])
    except:
       pass
-   #execute the sql command for each (lol..each...ruby??)
+
 
 
 #write the variables to mySQL
