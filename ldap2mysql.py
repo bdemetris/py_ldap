@@ -35,23 +35,36 @@ for result in results:
 #   print result
    #set giveName to f_name
    try:
-      f_name = result[1]['givenName']
+      f_name = str(result[1]['givenName'])
+      f_name = f_name.replace("[","")
+      f_name = f_name.replace("'","")
+      f_name = f_name.replace("]","")
       print f_name
    except:
       pass
    #set sn to l_name
    try:
-      l_name = result[1]['sn']
+      l_name = str(result[1]['sn'])
+      l_name = l_name.replace("[","")
+      l_name = l_name.replace("'","")
+      l_name = l_name.replace("]","")
       print l_name
    except:
       pass
    #set mail to mail
    try:
-      mail = result[1]['mail']
+      mail = str(result[1]['mail'])
+      mail = mail.replace("[","")
+      mail = mail.replace("'","")
+      mail = mail.replace("]","")
       print mail
+      cursor.execute("INSERT INTO user_model(FirstName, LastName, UserName) VALUES(%s,%s,%s)", [f_name, l_name, mail])
    except:
       pass
-   
+   #execute the sql command for each (lol..each...ruby??)
+
+
+#write the variables to mySQL
 try:
    # Commit changes in the database
    db.commit()
