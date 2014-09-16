@@ -1,22 +1,32 @@
-# thanks to the original author of this script!
+#      My Learning Plan Integration        #
+# ---------------------------------------- #
+# Define Username and Password Information #
+# Define Testmode as True or False         #
+# ---------------------------------------- #
+mlp_id = 'username'
+mlp_pw = 'password'
+testmode = True
 
+# Libraries used by MLP Script
 import csv
+import requests
 
 # target file.  destination file will be created
 csvFile = 'C:\work\work.csv'
 xmlFile = 'C:\work\myData.xml'
 
-# use both files
+# open and read both files
 csvData = csv.reader(open(csvFile, 'rU'))
 xmlData = open(xmlFile, 'w')
 
 # write root tag
 xmlData.write('<root>' + "\n")
 
-# write line 2 - customer id and password
-customer_id = 'monkey'
-password = 'butts'
-xmlData.write("<customer id='%s' password='%s'>" % (customer_id,password) + "\n")
+# write line 2 - customer id and password - testmode?
+if testmode == True:
+    xmlData.write("<customer id='%s' password='%s' testmode='1'>" % (mlp_id,mlp_pw) + "\n")
+else:
+    xmlData.write("<customer id='%s' password='%s'>" % (mlp_id,mlp_pw) + "\n")
 
 # parse csv and create the body - actions to take = _Add, _Update
 rowNum = 0
@@ -40,4 +50,19 @@ for row in csvData:
 
 xmlData.write('</customer>' + "\n")
 xmlData.write('</root>' + "\n")
+
+
+# MLP Server POST Request
+
+headers = {'Content-Type': 'text/html'}
+url = 'https://www.mylearningplan.com/xml/dataexchange.asp'
+
+postRequest = requests.post(url, data=xml, headers=headers, auth=(mlp_id, mlp_pw))
+
+
+# debugging
+print postRequest.text
+
+# closing xml file object
 xmlData.close()
+
