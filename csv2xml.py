@@ -3,8 +3,8 @@
 # Define Username and Password Information #
 # Define Testmode as True or False         #
 # ---------------------------------------- #
-mlp_id = '17204'
-mlp_pw = 'xml40271api'
+mlp_id = 'xxx'
+mlp_pw = 'xxx'
 testmode = True
 
 # Libraries used by MLP Script
